@@ -37,10 +37,7 @@ from .tasks import (
     StartCompaignTask,
     checkPostedApprovedAndChangeItTask
     )
-import random
-import string
-import re
-import time
+import random, string, re , os, time
 # Create your views here.
 
 def docsView(request):
