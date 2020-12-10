@@ -1,2 +1,2 @@
 web: gunicorn main.wsgi
-worker: celery -A main worker --beat -S django --l info
+worker: celery -A main worker -l info
