@@ -153,7 +153,7 @@ DEFAULT_FORM_EMAIL = 'contact.fbpublisher@gmail.com'
 EMAIL_PORT = 587 
 EMAIL_HOST_PASSWORD = 'Imqilqane123+'
 
-CELERY_BROKER_URL = 'redis://:paf7476fd6f8ecc55af517931e738045cd9bdceb3424a1fc075889f1d3bc0ad80@ec2-3-82-178-63.compute-1.amazonaws.com:28269'
+CELERY_BROKER_URL = 'redis://:p155ae55abc0b518247f6fd5369d455ba68ab508f6bca65c598f72b6597be00c0@ec2-54-161-251-41.compute-1.amazonaws.com:31419'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_BACKEND = 'django-db'
