@@ -21,27 +21,26 @@ def generateCode():
 def getDriver(fb):
     chrome_options = webdriver.ChromeOptions()
     chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-    prefs = {"profile.default_content_setting_values.notifications" : 2}
-    chrome_options.add_experimental_option("prefs",prefs)
     chrome_options.add_argument('headless')
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--no-sandbox")
     prefs = {"profile.default_content_setting_values.notifications" : 2}
+    chrome_options.add_experimental_option("prefs",prefs)
     driver = None
 
     # try to find the chromdriver in local machin for linux
     try:
-        driver = webdriver.Chrome('/media/norimqi/4f6ee506-7a47-4a1d-8d53-6e727a24e241/noureddine/chrom/chromedriver', chrome_options=chrome_options)
+        driver = webdriver.Chrome('facebook/static/facebook/chrom/chromedriver', chrome_options=chrome_options)
         driver.get('https://www.facebook.com')
-    except WebDriverException:
+    except :
          try:
-            driver = webdriver.Chrome('/media/norimqi/4f6ee506-7a47-4a1d-8d53-6e727a24e241/noureddine/chrom/chromedriver1', chrome_options=chrome_options)
+            driver = webdriver.Chrome('facebook/static/facebook/chrom/chromedriver1', chrome_options=chrome_options)
             driver.get('https://www.facebook.com')
-         except WebDriverException:
+         except :
             try:
-                driver = webdriver.Chrome('/media/norimqi/4f6ee506-7a47-4a1d-8d53-6e727a24e241/noureddine/chrom/chromedriver2', chrome_options=chrome_options)
+                driver = webdriver.Chrome('facebook/static/facebook/chrom/chromedriver2', chrome_options=chrome_options)
                 driver.get('https://www.facebook.com')
-            except WebDriverException:
+            except :
                 # END try to find the chromdriver in local machin for linux
 
                 # try to find the chromdriver in local machin for windows
@@ -52,7 +51,7 @@ def getDriver(fb):
                 try:
                     driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),chrome_options=chrome_options)
                     driver.get('https://www.facebook.com')
-                except WebDriverException:                
+                except :                
                     return redirect('dashboard:dashboard')
 
     email = driver.find_element_by_id('email')
