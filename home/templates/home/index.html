@@ -1,0 +1,262 @@
+
+{% extends 'home/main.html' %}
+{% load static %}
+{% block content %}
+		
+<div class="colorlib-loader"></div>
+
+<div id="page">
+	<nav class="colorlib-nav" role="navigation">
+		<div class="top-menu">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-2">
+						<div id="colorlib-logo"><a href="{% url 'home:home' %}">Fb Publisher</a></div>
+					</div>
+					<div class="col-md-10 text-right menu-1">
+						<ul>
+							<li class="active"><a href="{% url 'home:home' %}">Home</a></li>
+							
+							<li><a href="{% url 'home:home' %}#services">Services</a></li>
+							<li><a href="{% url 'home:home' %}#about">About</a></li>
+							<li><a href="{% url 'home:home' %}#getpremuim">Pricing</a></li>
+							{% if user.is_authenticated %}
+							<li><a href="{% url 'dash:dashboard' %}">Dashboard</a></li>
+							<li><a href="{% url 'home:logout' %}">Logout</a></li>
+							{% else %}
+							<li><a href="{% url 'home:login' %}">Login</a></li>
+							{% endif %}
+							<li><a href="{% url 'home:home' %}#about">Contact</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<section id="home" class="video-hero" style="height: 700px; background-image: url(../../static/home/images/cover_img_1.jpg);  background-size:cover; background-position: center center;background-attachment:fixed;" data-section="home">
+	<div class="overlay"></div>
+		<a class="player" data-property="{videoURL:'https://www.youtube.com/watch?v=vqqt5p0q-eU',containment:'#home', showControls:false, autoPlay:true, loop:true, mute:true, startAt:0, opacity:1, quality:'default'}"></a> 
+		<div class="display-t text-center">
+			<div class="display-tc">
+				<div class="container">
+					<div class="col-md-12 col-md-offset-0">
+						<div class="animate-box">
+							<h2>Take on your biggest projects and goals</h2>
+							<p>with Fb Publisher's high quality features</p>
+							<p><a href="{% url 'home:register' %}" class="btn btn-primary btn-lg btn-custom">Get premium</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class="colorlib-featured">
+		<div class="row animate-box">
+			<div class="featured-wrap">
+				<div class="owl-carousel">
+					<div class="item">
+						<div class="col-md-8 col-md-offset-2">
+							<div class="featured-entry">
+								<img class="img-responsive" src="{% static 'home/images/Capture.PNG'%}"  alt="">
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="col-md-8 col-md-offset-2">
+							<div class="featured-entry">
+								<img class="img-responsive" src="{% static 'home/images/Capture1.PNG' %}" alt="">
+							</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="col-md-8 col-md-offset-2">
+							<div class="featured-entry">
+								<img class="img-responsive" src="{% static 'home/images/Capture3.PNG' %}" alt="">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="colorlib-services colorlib-bg-white" id="services">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 text-center animate-box">
+					<div class="services">
+						<span class="icon">
+							<i class="icon-browser"></i>
+						</span>
+						<div class="desc">
+							<h3>Add unlimited facebook accounts</h3>
+							<p>You can add as mush as you want facebook account and manage them to get you a huge amount of free traffic without any effort.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 text-center animate-box">
+					<div class="services">
+						<span class="icon">
+							<i class="icon-download"></i>
+						</span>
+						<div class="desc">
+							<h3>Automaticly join unlimited groups</h3>
+							<p>you can join any number of group under the niche you want and Fb publisher will manage that profissionaly all the groups that you get approved to join will be shown on your dashboard.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4 text-center animate-box">
+					<div class="services">
+						<span class="icon">
+							<i class="icon-layers"></i>
+						</span>
+						<div class="desc">
+							<h3>Post your ads in facebook Groups </h3>
+							<p>Fb publisher will  allow you post your ads in facebook groups with a smart method, it will post it directly in groups 
+								that did not required admin approvment in posting and the groups that needs it, the tool will post an image from gallery 
+								in the group niche and after it get approved fb publisher will edit it to your real ad</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="colorlib-counter" class="colorlib-counters" style="background-image: url(../../static/home/images/cover_img_1.jpg);" data-stellar-background-ratio="0.5">
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="col-md-4 col-sm-4 text-center animate-box">
+						<div class="counter-entry">
+							<span class="icon"><i class="flaticon-ribbon"></i></span>
+							<div class="desc">
+								<span class="colorlib-counter js-counter" data-from="0" data-to="1500" data-speed="5000" data-refresh-interval="50"></span>
+								<span class="colorlib-counter-label">Of customers are satisfied with our professional support</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-4 text-center animate-box">
+						<div class="counter-entry">
+							<span class="icon"><i class="flaticon-church"></i></span>
+							<div class="desc">
+								<span class="colorlib-counter js-counter" data-from="0" data-to="500" data-speed="5000" data-refresh-interval="50"></span>
+								<span class="colorlib-counter-label">Amazing preset options to be mixed and combined</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-4 text-center animate-box">
+						<div class="counter-entry">
+							<span class="icon"><i class="flaticon-dove"></i></span>
+							<div class="desc">
+								<span class="colorlib-counter js-counter" data-from="0" data-to="1200" data-speed="5000" data-refresh-interval="50"></span>
+								<span class="colorlib-counter-label">Average response time on live chat support channel</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="colorlib-pricing">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-center colorlib-heading animate-box">
+					<h2>Pricing</h2>
+					<p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name</p>
+				</div>
+			</div>
+			<div class="row">
+			
+				<div class="col-md-4 text-center animate-box">
+					
+				</div>
+				<div class="col-md-4 text-center animate-box ">
+					<div class="pricing" id="getpremuim">
+						<h2 class="pricing-heading">The only plan</h2>
+						<div class="price"><sup class="currency">$</sup>12.49<small>per month</small></div>
+						<p style="font-size: 12px;">advirtise your artical or your item in facebook and drive unlimited leads for just 12.49 per month </p>
+						<ul class="text-left">
+							<li>Add and manage unlimited FB accounts</li>
+							<li>Join unlimited FB groups</li>
+							<li>Post unlimited Ads for your artical or item</li>
+						</ul>
+						<p><a href="{% url 'home:register' %}" class="btn btn-primary" >Select Plan</a></p>
+					</div>
+				</div>
+				<div class="col-md-4 text-center animate-box">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer id="colorlib-footer" >
+		<div class="container" id="about">
+			<div class="row row-pb-md" >
+				<div class="col-md-6 colorlib-widget">
+					<h4>About FB publisher</h4>
+					<p>This tool will allow you to add unlimited facebook account and join facebook groups under the niches you will add to the tool, after FB publisher 
+						send join request to the groups it will follow the request status until the admin accepts the request, after that you will need to add image gallery 
+						and CopyWrights that the tool will use in test the posting permession in groups so it will know the groups that need admin approvment and the groups that
+						did not need it, after that you will need to add your ad copies and start compaigns so FB publisher will post it directlly in groups that did not required 
+						admin approvments, and in the groups that need that approvment it will post image and copy write from the gallery, so after the admin approved it the tool 
+						will edit it with the real ad copy 
+					</p>
+					<p>
+						<ul class="colorlib-social-icons">
+							<li><a href="https://twitter.com/PublisherFb" target="_blank"><i class="icon-twitter" ></i></a></li>
+							<li><a href="https://www.facebook.com/fbpublisher" target="_blank"><i class="icon-facebook" ></i></a></li>
+							<li><a href="https://www.instagram.com/fbpublisher/" target="_blank"><i class="icon-instagram"></i></a></li>
+							<li><a href="https://www.youtube.com/channel/UC-Ejibz_Z2b3yaSiy7MYZCg?guided_help_flow=5" target="_blank"><i class="icon-youtube"></i></a></li>
+						</ul>
+					</p>
+				</div>
+			
+
+				<div class="col-md-3 colorlib-widget">
+					<h4>Contact Info</h4>
+					<ul class="colorlib-footer-links"> 
+						<li>AGADIR IDA OU TANAN, <br> SOUSS - MASSA, MOROCCO</li>
+						<li><a href="tel://+212651022206"><i class="icon-phone"></i> +(212)-651022206 </a></li>
+						<li><a href="mailto:contact.fbpublisher@gmail.com"><i class="icon-envelope"></i> contact.fbpublisher@gmail.com
+						</a></li>
+						<li><a href="www.fbpublisher.com"><i class="icon-location4"></i> www.fbpublisher.com</a></li>
+					</ul>
+				</div>
+				<div class="col-md-3 colorlib-widget">
+					<h4>The Founder</h4>
+					<h4 class="text-light">Imqilqane Noureddine</h4>
+					<p>22 years old Moroccan Full-Stack developer,</p>
+					<p><a href="http://www.imqilqane.com/" target="_blank">visit the founder portfolio</a></p>
+				</div>
+			</div>
+		</div>
+		<div class="copy">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<p>
+							 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved by fbpublisher.com <a href="#" target="_blank"></a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --><br> 
+							
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+</div>
+
+<div class="gototop js-top">
+	<a href="#" class="js-gotop"><i class="icon-arrow-up2"></i></a>
+</div>
+
+{% endblock %}

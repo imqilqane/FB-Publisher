@@ -1,0 +1,16 @@
+{% extends 'dashboard/index.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'facebook/css/style.css' %}">
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">            
+        <div class="container p-3 m-3">
+            {{doc.doc|safe}}
+            <!-- make sure to turn this https://www.youtube.com/watch?v=5pFoGx-K0qw  
+                to this https://www.youtube.com/embed/5pFoGx-K0qw before use the video-->
+            <iframe width="640" height="360" src="{{doc.video}}" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+{% endblock %}

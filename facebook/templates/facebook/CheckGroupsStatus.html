@@ -1,0 +1,60 @@
+
+{% extends 'facebook/checkgroupsstatus_downlaod.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'facebook/css/style.css' %}">
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+            
+        <div class="container">
+                  <!-- load -->
+     
+                    <!-- end load -->
+                    <div class="row bg-light mt-2 mb-2 border addNewAccount" id="hide_section">
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                            <div>
+                                <!-- ####################### progress.html ########################## -->
+                                {% block progress %}
+                                <div class="text-center" style="font-size: 14px">
+                                    <div id="progress-bar-message">
+                                    
+                                    </div>
+                                </div>
+                                <div class='progress-wrapper' style="padding-top: 10px;">
+                                <div id='progress-bar' class='progress-bar progress-bar-striped' role='progressbar' style="height:30px; width: 0%; border-radius: 5px">&nbsp;</div>
+                                </div>
+                                <div id="celery-result">
+                                </div>
+                                {% endblock progress %}
+                                
+                                {% block progress_bar_js %}
+                                {% if task_id %}
+                                <script type="text/javascript">
+                                    // Progress Bar (JQuery)
+                                    $(function () {
+                                        var progressUrl = "{% url 'celery_progress:task_status' task_id %}";
+                                        CeleryProgressBar.initProgressBar(progressUrl, {})
+                                    });
+                                </script>
+                                {% endif %}
+                                {% endblock progress_bar_js %}
+                                <!-- ################################################# -->
+                            </div>
+                       </div>
+                    </div>
+            <!-- <div class="row bg-light mb-2 border addNewAccount" id="hide_section">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                <div>
+                    
+                    
+                </div>
+               
+               </div>
+            </div> -->
+
+        
+        </div>
+    </div>
+</div>

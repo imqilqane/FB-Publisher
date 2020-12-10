@@ -1,0 +1,32 @@
+{% extends 'dashboard/index.html' %}
+{% load static %}
+{% block content %}
+<link href="{% static 'home\css\reset.css' %}" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Indie+Flower|Overpass+Mono" rel="stylesheet">
+
+<div id="wrapper">
+  <div class="alert alert-primary" role="alert">
+    The password should contains Numbers and Letters
+  </div>
+  <div class="main-content-confirm">
+    
+    <div class="l-part">
+      <form method="POST">{% csrf_token %}
+         <!-- <input type="text" placeholder="enter your email" name="email" class="input-1" /> -->
+         {% for item in form %}
+         <div class="password"> 
+         <label for="id_new_password{{forloop.counter}}">Password{{forloop.counter}}</label>
+         {{item}}
+        </div>
+         {% endfor %}
+         <input type="submit" value="Change" class="btn" />
+      </form>
+      <div class="s-part mt-3">
+        Don't have an account?<a href="{% url 'home:register' %}"> create one</a>
+        
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

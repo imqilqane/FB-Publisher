@@ -1,0 +1,14 @@
+
+{% extends 'dashboard/index.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'facebook/css/style.css' %}">
+
+<div class="dashboard-ecommerce p-5">
+    <p>You are about to delete this niche : <strong class="text-warning">{{niche.niche}}</strong></p>
+    <form method ="POST">{% csrf_token %}
+        <input type="submit" value="Delete" class="btn btn-danger border">
+    </form>
+    <a href="{% url 'fb:addniche' %}" class="btn btn-warning border text-light">Go Back</a>
+</div>
+{% endblock %}

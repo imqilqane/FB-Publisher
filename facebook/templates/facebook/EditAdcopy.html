@@ -1,0 +1,64 @@
+
+{% extends 'dashboard/index.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'facebook/css/style.css' %}">
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+            <h3>Ad copies</h3>
+           
+        <div class="container">
+                  <!-- load -->
+     
+                    <!-- end load -->
+            <div class="row bg-light mb-2 border addNewAccount" id="hide_section">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                <div>
+                    <form method='POST' enctype="multipart/form-data">{% csrf_token %}
+                        <div class="des">
+                            <label for="discription">Discription:</label><br>
+                           {{form.descriprtion}}
+                        </div>
+                        
+                        <div class="link">
+                            <label for="link">Link:</label><br>
+                            {{form.link}}
+
+                        </div>
+                        <div class="mt-3 niches">
+                            <p><strong>Current niche :</strong>  <span class="text-warning">{{my_adcopies.niche}}</span></p>
+
+                            <label for="niche">Choose a niche:</label>
+                            <select name="niche" id="niche" style="height:39px; width: 100%;" required>
+                                <option value="" disabled selected hidden>Please Choose...</option>
+                                {% for niche in niches %}
+                                <option value="{{niche}}">{{niche}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                      
+                        <div class="image mt-3">
+                            <label for="link">Image Path:</label><br>
+                            {{form.image}}
+                        </div>
+                      
+                        <input type="submit" value="Save" class=" btn btn-success mt-3" >
+
+                    </form>
+                    
+                </div>
+                <div id="addaccoutform">
+
+                </div>
+               </div>
+            </div>
+
+       
+
+        
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,68 @@
+
+{% extends 'home/main.html' %}
+{% load static %}
+{% block content %}
+<div id="colorlib-contact">
+    <div class="container">
+        <h4><a href=" {% url 'home:home' %}">Go Back Home</a> </h4>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 animate-box">
+                <h2>Register Now</h2>
+                <form method="POST">{% csrf_token %}
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <!-- <label for="fname">First Name</label> -->
+                            <input type="text" id="fname" name="fname" class="form-control" placeholder="Your firstname" required>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- <label for="lname">Last Name</label> -->
+                            <input type="text" id="lname" name="lname"  class="form-control" placeholder="Your lastname" required>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <!-- <label for="email">Email</label> -->
+                            <input type="text" id="username" name="username" class="form-control" placeholder="Your username" required>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <!-- <label for="email">Email</label> -->
+                            <input type="text" id="email" name="email" class="form-control" placeholder="Your email address" required>
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <!-- <label for="subject">Subject</label> -->
+                            <input type="password" id="password1" name="password1" class="form-control" placeholder="Your password" required>
+                        </div>
+                        
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-12">
+                            <!-- <label for="subject">Subject</label> -->
+                            <input type="password" id="password2" name="password2" class="form-control" placeholder="Confirm Your password" required>
+                        </div>
+                    </div>
+
+                
+                    <div class="form-group">
+                        <div class="row">
+                        
+                            <div class="col-md-4">
+                                <input type="submit" value="REGISTER" class="btn btn-primary" style="width: 100%;">
+                            </div>
+                        </div>
+
+                    </div>
+                    <span style="display: block;"><a href="{% url 'home:login' %}">Alredy Have Account Login Now</a></span>
+                </form>		
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

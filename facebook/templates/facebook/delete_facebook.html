@@ -1,0 +1,15 @@
+
+{% extends 'dashboard/index.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'facebook/css/style.css' %}">
+<div class="alert alert-primary mt-2" role="alert">
+    By deleting this fb account you will delete all the groups attached with it from fb publisher database</div>
+<div class="dashboard-ecommerce p-5">
+    <p>You are about to delete this FB Account : <strong class="text-warning">{{fb_account.username}}</strong></p>
+    <form method ="POST">{% csrf_token %}
+        <input type="submit" value="Delete" class="btn btn-danger border">
+    </form>
+    <a href="{% url 'fb:facebookAccounts' %}" class="btn btn-warning border text-light">Go Back</a>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+
+{% extends 'dashboard/index.html' %}
+{% load static %}
+{% block content %}
+
+
+<link rel="stylesheet" href="{% static 'facebook/css/style.css' %}">
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content " >
+            <h3>Facebook Accounts</h3>
+        <div class="container">
+            <div class="row bg-light mb-2 border addNewAccount" id="hide_section">
+                <div class="col-md-3"></div>
+               <div class="col-md-6">
+                    <!-- load -->
+                    <div class="load" id="loader">
+                        <div class="cont">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                            <p>please wait until the precess is done and dont close the windows</p>
+                    </div>
+                    <!-- end load -->  
+                    <div>
+                        <button class="btn border" id="addnewaccount">Add New Account</button>
+                    </div>
+                    <div id="addaccoutform">
+                        <form method="POST"> {% csrf_token %}
+                            <input type="text" placeholder="username or email" name="username" required>
+                            <input type="password" placeholder="password" name="password" required>
+                            <input type="submit" value="Add Account" id="start_load">
+                        </form>
+                    </div>
+               </div>
+            </div>
+            {% for fb in fb_accounts %}
+            {% if fb.accountStatus != 'active' %}
+            <div class="alert alert-warning mt-2" role="alert">
+                Please check the accounts that banded from posting or banded from facebook if they are unbanded you can click edit to mark them as unbanded</div>
+            {% endif %}
+            <div class="row bg-light mb-2 border facebooks">
+                <ul style="list-style: none;">
+                    <li><strong class="s">Account Fullname: </strong><span> {{fb.fullname}} </span></li>
+                    <li><strong class="s">Account Date Of Creating: </strong><span> {{fb.dateOfCreating}} </span></li>
+                    <li><strong class="s">Account Status: </strong><span> {{fb.accountStatus}} </span></li>
+                </ul>
+                <ul>
+                    <i class="delete"><a href="{% url 'fb:delete' fb.id %}">Delete</a></i>
+                    <i class="edit"><a href="{% url 'fb:edite_fb' fb.id %}">Edit</a></i>
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

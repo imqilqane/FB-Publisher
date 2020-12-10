@@ -1,0 +1,32 @@
+{% extends "dashboard/index.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'facebook/css/style.css' %}">
+{% block content %}
+<!-- Reset Form -->
+
+<!-- Download Form -->
+<div class="container text-center mt-3 mb-3 p-4 bg-light border" >
+	<h3 class="text-left">Facebook Groups</h3>
+	<div class="row" id="hide_section">  
+		<div class="col-md-3"></div>
+        <div class="col-md-6">
+			<form action="{% url 'fb:groups' %}" method="post" style="display: inline;" >
+						{% csrf_token %}
+						<button class="btn border" type="submit" style="
+							background: #7a80b4;
+							color: white;
+							width: 90%;
+						" >
+							<strong>Start Join Groups</strong>
+						</button>
+			</form>
+        </div>
+	</div>
+
+	<!-- Download Status -->
+	<div style="height: 120px;">
+		{% block progress %}{% endblock progress %}
+	</div>
+
+</div>
+{% endblock %}

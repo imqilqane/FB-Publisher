@@ -1,0 +1,198 @@
+.load {
+    display: none; 
+}
+
+.cont {
+    width: 86px;
+    height: 48px;
+    margin: 20px auto;
+    position: relative;
+}
+
+.cont span {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    height: 5px;
+    width: 9px;
+    background-color: #9b59B6;
+    animation: load 1.5s infinite ease-in-out
+}
+
+.cont span:nth-of-type(2) {
+    left: 11px;
+    animation-delay: 0.2s;
+}
+.cont span:nth-of-type(3) {
+    left: 22px;
+    animation-delay: 0.4s;
+
+}
+.cont span:nth-of-type(4) {
+    left: 33px;
+    animation-delay: 0.6s;
+
+}
+.cont span:last-of-type {
+    left: 44px;
+    animation-delay: 0.8s;
+
+}
+
+#StartJoinGroups{
+    background : #7a80b4;
+    color: white;
+}
+
+#start_load {
+    background: #7a80b4;
+    color: white;
+}
+
+@keyframes  load {
+    0%, 50%, 100% {
+        
+        height: 5px;
+        background-color: #9B59B6;
+        transform: translateY(0);
+    }
+
+    25%{
+        
+        height: 30px;
+        background-color: brown;
+        transform: translateY(15px);
+    }
+}
+
+
+/* other */
+
+.facebooks {
+    padding-top: 26px;
+    position: relative;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+.edit {
+    float: right;
+    position: absolute;
+    right: 22px;
+    bottom: 21px;
+}
+
+.delete {
+    float: right;
+    position: absolute;
+    right: 64px;
+    bottom: 21px;
+}
+
+.h3 {
+    width: 100%;
+}
+
+.addNewAccount{
+    padding: 20px 0;
+}
+
+#addaccoutform{
+    display: none;
+}
+
+#addaccoutform input {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: none;
+    width: 100%;
+    background: transparent;
+    border-bottom: .5px solid grey;
+    outline: none;
+}
+
+#addaccoutform input[type="submit"] {
+    background: #7a80b4;
+    outline: none;
+    border: 1px solid;
+    color: white;
+}
+
+input#join_all{
+    width: 36px;
+}
+
+.s {
+color: yellowgreen;
+}
+
+span {
+    color: #242849;
+}
+
+.red {
+    color: red;
+}
+
+.btn {
+    width: 100%;
+}
+
+#note {
+    display: none;
+}
+
+#gourps_list{
+    /* display: none; */
+}
+
+
+/* gallery */
+
+div.gallery {
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 180px;
+}
+ 
+div.gallery:hover {
+  border: 1px solid #777;
+}
+ 
+div.gallery img {
+  width: 100%;
+  height: auto;
+}
+ 
+div.desc {
+  padding: 15px;
+  text-align: center;
+}
+
+
+
+/* gallery 2*/
+
+div.gallery2 {
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 33%;
+}
+ 
+div.gallery2:hover {
+  border: 1px solid #777;
+}
+ 
+div.gallery2 img {
+  width: 100%;
+  height: auto;
+}
+ 
+div.desc2 {
+  padding: 15px;
+  text-align: center;
+}

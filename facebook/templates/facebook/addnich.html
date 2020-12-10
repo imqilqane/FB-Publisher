@@ -1,0 +1,60 @@
+
+{% extends 'dashboard/index.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'facebook/css/style.css' %}">
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+            <h3>Add niche</h3>
+            <div class="alert alert-info" role="alert" id="note" id="alert">
+                <p><strong>Note:</strong> by default the tool will join all the groups that did not have questions to answer
+                    and it will display to you at the end two list, one with all the groups that we joind and
+                    other one with all the groups that need awnsers so you can awnser them by yourself or 
+                    <strong>you can check join all the groups and skip awnsering questions</strong> </p>
+            </div>
+            
+        <div class="container">
+                  <!-- load -->
+     
+                    <!-- end load -->
+            <div class="row bg-light mb-2 border addNewAccount" id="hide_section">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                <div>
+                    <button class="btn border" id="addnewaccount">Add A Niche</button>
+                </div>
+                <div id="addaccoutform">
+
+                    <form method="POST"> {% csrf_token %}
+                        <input type="text" placeholder="your nich" name="niche" required>
+                        <input type="checkbox" id="join_all" name="join" >
+                        <label for="join_all">join all the groups and skip awnsering questions</label><br>
+                        <input type="submit" value="Add Niche" >
+                    </form>
+
+
+                </div>
+               </div>
+            </div>
+
+            <div class="row bg-light mb-2 border addNewAccount " id="gourps_list">
+                <div class="col-md-3 text-center"></div>
+                <div class="col-md-6 text-center">
+                    {% if niches %}
+                    <p class="red">Your Niches</p>
+                        <ol class="text-left"> 
+                            {% for niche in niches %}
+                            <li>{{niche.niche}} <a href="{% url 'fb:deleteniche' niche.id %}" class="float-right">Delete</a></li>
+                            {% endfor %}
+                        </ol>
+                    {% endif %}
+                </div>
+           
+            </div>
+
+           
+        </div>
+    </div>
+</div>
+{% endblock %}

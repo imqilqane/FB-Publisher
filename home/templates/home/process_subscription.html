@@ -1,0 +1,31 @@
+{% extends "dashboard/index.html" %}
+{% block title %}Pay using PayPal{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-1">
+            
+        </div>
+        <p class="mt-2">PROCEED TO PAYPAl</p>
+    </div>
+    <div class="row">
+            <div class="col-md-2">
+                
+            </div>
+            <div class="col-md-4 mt-5 mb-5">
+                    
+                {{form.render}}
+
+            </div>
+            <div class="col-md-6">
+
+                <form action="{% url 'home:coupon' %}" method="POST">{% csrf_token %}
+                    <label for="code">Add Coupon Code: </label>
+                    <input type="text" name="code", id="code", placeholder="Add Coupon Code">
+                    <input type="submit" value="Add Code" class="btn btn-warning">
+                </form>
+            </div>
+    </div>
+       
+    
+        
+    {% endblock %}

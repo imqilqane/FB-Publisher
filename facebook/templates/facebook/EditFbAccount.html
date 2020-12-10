@@ -1,0 +1,48 @@
+
+{% extends 'dashboard/index.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'facebook/css/style.css' %}">
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+            <h3>Ad copies</h3>
+           
+        <div class="container">
+                  <!-- load -->
+     
+                    <!-- end load -->
+            <div class="row bg-light mb-2 border addNewAccount" id="hide_section">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                <div>
+                    <form method='POST' enctype="multipart/form-data">{% csrf_token %}
+                        <div class="des">
+                            <label for="discription">Fb account Full_name:</label><br>
+                           {{form.fullname}}
+                           {% if my_fb.accountStatus == 'banded from posting' %}
+                           <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1" name='unbanded'>
+                            <label class="form-check-label" for="exampleCheck1">Check me out if this account is recovered </label>
+                          </div>
+                           {% endif %}
+                        </div>
+                                            
+                        <input type="submit" value="Save" class=" btn btn-success mt-3" >
+
+                    </form>
+                    
+                </div>
+                <div id="addaccoutform">
+
+                </div>
+               </div>
+            </div>
+
+       
+
+        
+        </div>
+    </div>
+</div>
+{% endblock %}

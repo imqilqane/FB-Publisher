@@ -1,0 +1,40 @@
+
+{% extends 'home/main.html' %}
+{% load static %}
+{% block content %}
+<div id="colorlib-contact">
+    <div class="container">
+        <h4><a href=" {% url 'home:home' %}" style="text-decoration: underline;">Go Back Home</a> </h4>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8 animate-box">
+                <h2>Login To Your Account</h2>
+                <form method="POST">{% csrf_token %}
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <!-- <label for="fname">First Name</label> -->
+                            <input type="text" id="username" class="form-control" placeholder="Your username" name="username" required>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- <label for="lname">Last Name</label> -->
+                            <input type="password" id="password" class="form-control" placeholder="Your password" style="height: 50px;" name="password" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                          
+                            <div class="col-md-4">
+                                <input type="submit" value="LOGIN" class="btn btn-primary" style="width: 100%;">
+                            </div>
+                        </div>
+
+                    </div>
+                    <span style="display: block;"><a href="{% url 'home:register' %}">Don't Have Account Register Now</a></span>
+                    <span style="display: block;"><a href="{% url 'reset_password' %}">Forget my password</a></span>
+                </form>		
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

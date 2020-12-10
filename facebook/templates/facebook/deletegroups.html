@@ -1,0 +1,16 @@
+
+{% extends 'dashboard/index.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'facebook/css/style.css' %}">
+<div class="alert alert-primary mt-2" role="alert">
+    By deleting this group it will delete from FB publisher databases, 
+    So your Facebook account in reality will be still joining this group or have a request to join it  </div>
+<div class="dashboard-ecommerce p-5">
+    <p>You are about to delete this Group : <strong class="text-warning">{{group.group_name}}</strong></p>
+    <form method ="POST">{% csrf_token %}
+        <input type="submit" value="Delete" class="btn btn-danger border">
+    </form>
+    <a href="{% url 'dashboard:dashboard' %}" class="btn btn-warning border text-light">Go Back</a>
+</div>
+{% endblock %}

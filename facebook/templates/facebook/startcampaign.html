@@ -1,0 +1,100 @@
+
+{% extends 'facebook/startcampaign_downlaod.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'facebook/css/style.css' %}">
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+           
+        <div class="container">
+            <div class="row bg-light mt-2 mb-2 border addNewAccount" id="hide_section">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <div>
+                        <!-- ####################### progress.html ########################## -->
+                        {% block progress %}
+                        <div class="text-center" style="font-size: 14px">
+                            <div id="progress-bar-message">
+                            
+                            </div>
+                        </div>
+                        <div class='progress-wrapper' style="padding-top: 10px;">
+                        <div id='progress-bar' class='progress-bar progress-bar-striped' role='progressbar' style="height:30px; width: 0%; border-radius: 5px">&nbsp;</div>
+                        </div>
+                        <div id="celery-result">
+                        </div>
+                        {% endblock progress %}
+                        
+                        {% block progress_bar_js %}
+                        {% if task_id %}
+                        <script type="text/javascript">
+                            // Progress Bar (JQuery)
+                            $(function () {
+                                var progressUrl = "{% url 'celery_progress:task_status' task_id %}";
+                                CeleryProgressBar.initProgressBar(progressUrl, {})
+                            });
+                        </script>
+                        {% endif %}
+                        {% endblock progress_bar_js %}
+                        <!-- ################################################# -->
+                    </div>
+               </div>
+            </div>
+            {% block all_ad_compains %}
+            <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12 p-2" style="border: .5px solid #cce4fe; background: #eae9f1;">
+                {% if all_ad_compains %}
+                <div class="card">
+                    <h5 class="card-header text-left">Your Posted Ad Copmaign</h5>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <div class="alert alert-primary text-left" role="alert">
+                                Posted Ad Copmaign for the last 10 days
+                              </div>
+                            <table class="table">
+                                <thead class="bg-light">
+                                    <tr class="border-0">
+                                        <th class="border-0">#</th>
+                                        <th class="border-0">Copmaign Link</th>
+                                        <th class="border-0">Posting Groups</th>
+                                        <th class="border-0">Fb account</th>
+                                        <th class="border-0">Status</th>
+                                        <th class="border-0">Post link</th>
+                                        <th class="border-0">Posting date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for ad in all_ad_compains %}
+
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td><a href="{{ad.adcopy.link}}" target="_blank">Check Link</a></td>
+                                        <td><a href="{{ad.posting_group.group_link}}" target="_blank">{{ad.posting_group.group_name}}</a></td>
+                                        <td>{{ad.fb_account.fullname}} </td>
+
+                                        {% if ad.posted == True %}
+                                            <td>Posted</td>
+                                        {% else %}
+                                            <td>Waiting Approvment</td>
+                                        {% endif %}
+                                        {% if ad.post_link %}
+                                        <td><a href="{{ad.post_link}}" target="_blank">See the post</a></td>
+                                        {% else %}
+                                        <td> - </td>
+                                        {% endif %}
+                                        <td>{{ad.posted_at}}</td>
+                                        
+                                    </tr>
+                                    {% endfor %}
+                                   
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            {% endblock all_ad_compains %}
+        </div>
+    </div>
+</div>

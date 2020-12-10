@@ -1,0 +1,321 @@
+{% extends 'dashboard/index.html' %}
+{% load static %}
+{% block content %}
+{% if not_active_user %}
+<div class="alert alert-danger" role="alert">
+    Your account is not active please check your inbox to verify your email <strong>Note : if you don't find email in your inbox check spam folder to</strong>
+</div>
+{% endif %}
+<script>
+    var cercelar_char_elements = JSON.parse('{{ json_cercelar_char_elements|safe }}');
+</script>
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+        <!-- ============================================================== -->
+        <!-- pageheader  -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title">Welcome In The Dashboard  </h2>
+                    <div class="page-breadcrumb">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- end pageheader  -->
+        <!-- ============================================================== -->
+        <div class="ecommerce-widget">
+
+            <div class="row">
+                <!-- ============================================================== -->
+                <!-- sales  -->
+                <!-- ============================================================== -->
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="card border-3 border-top border-top-primary">
+                        <div class="card-body">
+                            <h5 class="text-muted">Ad Copies</h5>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1">{{ad_copies_len}}</h1>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- end sales  -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- new customer  -->
+                <!-- ============================================================== -->
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="card border-3 border-top border-top-primary">
+                        <div class="card-body">
+                            <h5 class="text-muted">Copy write</h5>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1">{{copy_writes_len}}</h1>
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- end new customer  -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- visitor  -->
+                <!-- ============================================================== -->
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="card border-3 border-top border-top-primary">
+                        <div class="card-body">
+                            <h5 class="text-muted">images</h5>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1">{{images_len}}</h1>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+
+                
+                <!-- ============================================================== -->
+                <!-- end visitor  -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- total orders  -->
+                <!-- ============================================================== -->
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="card border-3 border-top border-top-primary">
+                        <div class="card-body">
+                            <h5 class="text-muted">Send request to</h5>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1">{{groups_len}}</h1>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="card border-3 border-top border-top-primary">
+                        <div class="card-body">
+                            <h5 class="text-muted">Accepted groups</h5>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1">{{accepted_groups_len}}</h1>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="card border-3 border-top border-top-primary">
+                        <div class="card-body">
+                            <h5 class="text-muted">Waiting groups</h5>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1">{{waiting_groups_len}}</h1>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="card border-3 border-top border-top-primary">
+                        <div class="card-body">
+                            <h5 class="text-muted">Post with admin</h5>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1">{{admin}}</h1>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
+                    <div class="card border-3 border-top border-top-primary">
+                        <div class="card-body">
+                            <h5 class="text-muted">Post without admin</h5>
+                            <div class="metric-value d-inline-block">
+                                <h1 class="mb-1">{{no_admin}}</h1>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- end total orders  -->
+                <!-- ============================================================== -->
+            </div>
+            <div class="row">
+                <!-- ============================================================== -->
+                <!-- total revenue  -->
+                <!-- ============================================================== -->
+
+                
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- category revenue  -->
+                <!-- ============================================================== -->
+                <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header">Groups by Niche</h5>
+                        <div class="card-body">
+                            <div id="c3chart_category" style="height: 420px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- end category revenue  -->
+                <!-- ============================================================== -->
+
+                <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header">Facebook accounts</h5>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="bg-light">
+                                        <tr class="border-0">
+                                            <th class="border-0">#</th>
+                                            <th class="border-0">Username</th>
+                                            <th class="border-0">Full name</th>
+                                            <th class="border-0">Status</th>
+                                            <th class="border-0">Date of join</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for fb in fb_accounts %}
+                                        <tr>
+                                            <td>{{forloop.counter}}</td>
+                                            <td>{{fb.username}}</td>
+                                            <td>{{fb.fullname}}</td>
+                                            <td>{{fb.accountStatus}} </td>
+                                            <td>{{fb.dateOfCreating}} </td>                
+                                        </tr>
+                                        {% endfor %}
+                                      
+                                       
+                                        <tr>
+                                            <td colspan="9"><a href="{% url 'fb:facebookAccounts' %}" class="btn btn-outline-light float-right">Add or Delete</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- ============================================================== -->
+          
+                <!-- ============================================================== -->
+
+                              <!-- recent orders  -->
+                <!-- ============================================================== -->
+             
+                <!-- ============================================================== -->
+                <!-- end recent orders  -->
+
+
+            
+            </div>
+            <div class="row">
+                <!-- ============================================================== -->
+          
+                <!-- ============================================================== -->
+
+                <!-- recent orders  -->
+                <!-- ============================================================== -->
+                <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header">Groups</h5>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <div class="alert alert-primary" role="alert">
+                                    If you want any group to be preferred in posting your ads you can simply add it to your favorite list
+                                  </div>
+                                <table class="table">
+                                    <thead class="bg-light">
+                                        <tr class="border-0">
+                                            <th class="border-0">#</th>
+                                            <th class="border-0">Facebook</th>
+                                            <th class="border-0">Name</th>
+                                            <th class="border-0">Niche</th>
+                                            <th class="border-0">Status</th>
+                                            <th class="border-0">Approved</th>
+                                            <th class="border-0">Posting permission</th>
+                                            <th class="border-0">Add to Favorate</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for group in groups %}
+
+                                        <tr>
+                                            <td>{{forloop.counter}}</td>
+                                            <td>{{group.facebook_account.fullname}}</td>
+                                            <td><a href="{{group.group_link}}" >{{group.group_name}}</a></td>
+                                            <td>{{group.group_nich}} </td>
+
+                                            {% if group.active == True %}
+                                                <td>Active</td>
+                                            {% else %}
+                                                <td>blocked</td>
+                                            {% endif %}
+
+                                            {% if group.approved == True %}
+                                            <td> Approved </td>
+                                            {% else %}
+                                                <td> Waiting </td>
+                                            {% endif %}
+                                            {% if group.approved == True %}
+                                                {% if group.posting_with_permestion == False %}
+                                                    <td>No admin</td>
+                                                {% else %}
+                                                    <td>admin</td>
+                                                {% endif %}
+                                            {% else %}
+                                                <td> - </td>
+                                            {% endif %}
+
+                                            {% if group.favorated == False %}
+                                                <td><a href="{% url 'dashboard:favorate' group.id %}" class="btn btn-outline-success">Favorite</a></td>
+                                            {% else %}
+                                                <td><a href="{% url 'dashboard:unfavorate' group.id %}" class="btn btn-outline-danger">Unfavorite</a></td>
+                                            {% endif %}
+                                                <td><a href="{% url 'fb:del_groups' group.id %}"><i class="fa fa-trash" style="font-size: 20px;" aria-hidden="true"></i></a></td>
+                                        </tr>
+                                        {% endfor %}
+                                       
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- end recent orders  -->
+
+
+            
+            </div>
+          
+
+           
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,90 @@
+
+{% extends 'dashboard/index.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'facebook/css/style.css' %}">
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+        <h3>Random adCopy To minipelate</h3>
+    
+        <div class="container">
+                  
+            <div class="row bg-light mb-2 border addNewAccount" id="hide_section">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <h4>Add image to your galaery</h4>
+                    <form method='POST' enctype="multipart/form-data">{% csrf_token %}
+                        <div class="image">
+                            <label for="img">Choose Picture</label>
+                            <input class="w-100" type="text" name="img" placeholder="put image path here" id="img">
+
+                        </div>
+                    
+                        <div class="mt-3 niches">
+                            <label for="niche">Choose a niche:</label>
+                            <select name="niche" id="niche" style="height:39px; width: 100%;" required>
+                                <option value="" disabled selected hidden>Please Choose...</option>
+                                {% for niche in niches %}
+                                <option value="{{niche}}">{{niche}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <input type="submit" value="upload" class=" btn btn-success mt-3" >
+
+                    </form>
+                    
+                </div>
+              
+               
+            </div>
+
+         
+
+            {% include 'facebook/randomeCopyWrite.html' %}
+            {% if images %}
+            <div class="row bg-light mb-2 border addNewAccount" id="hide_section">
+                <h4 class="ml-2">Your Images Paths</h4>
+                <div class="col-md-12">
+                    <div> 
+                        <div>
+                            {% for img in images  %}
+                            <div class="gallery">
+                                    <div class="desc"><a href="{% url 'fb:delete_img' img.id %}" class="text-danger">Delete</a></div>
+                                    <div class="image_path p-1" style="overflow-wrap: break-word;">{{img.image}}</div>
+                                    <div class="desc text-warning">Niche : {{img.nich}}</div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div id="addaccoutform">
+                        </div>
+                    </div> 
+               </div>
+            </div>
+            {% endif %}
+
+            {% if copy_write %}
+            <div class="row bg-light mb-2 border addNewAccount" id="hide_section">
+                <h4 class="ml-2">Your Test Copy-writes</h4>
+                <div class="col-md-12">
+                    <div> 
+                        <div>
+                            {% for copy in copy_write  %}
+                            <div class="gallery">
+                                    <div class="desc"><a href="{% url 'fb:delete_copy' copy.id  %}" class="text-danger">Delete</a></div>
+                                    <div class="desc text-secondary"> {{copy.description}}</div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div id="addaccoutform">
+                        </div>
+                    </div> 
+               </div>
+            </div>
+            {% endif %}
+        
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'dashboard/index.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'facebook/css/style.css' %}">
+
+<div class="dashboard-ecommerce">
+    <div class="container-fluid dashboard-content ">
+            <h3>Posts Waiting Approvment </h3>
+            
+        <div class="container">
+                  <!-- load -->
+     
+                    <!-- end load -->
+            <div class="row bg-light mb-2 border addNewAccount" >
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                     <!-- load -->
+                    <div class="load" id="loader">
+                        <div class="cont">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <p>please wait until the precess is done and dont close the windows</p>
+                    </div>
+                    <!-- end load -->    
+                    <div id="check_groups_status"> 
+                        <form method='POST'>
+                            {% csrf_token %}
+                            <input type="submit" value="Check Posts Waiting Approvment" class="btn border" id="start_load">
+                        </form>
+                        
+                    </div>
+                    
+               </div>
+            </div>
+            <!-- <div class="row bg-light mb-2 border addNewAccount" id="hide_section">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                <div>
+                    
+                    
+                </div>
+               
+               </div>
+            </div> -->
+
+        
+        </div>
+    </div>
+</div>
+{% endblock %}

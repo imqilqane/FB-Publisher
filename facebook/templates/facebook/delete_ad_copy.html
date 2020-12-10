@@ -1,0 +1,15 @@
+
+{% extends 'dashboard/index.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'facebook/css/style.css' %}">
+<div class="alert alert-primary mt-2" role="alert">
+    By deleting this ad copy you will delete all the ad campaigns attached with it from fb publisher database</div>
+<div class="dashboard-ecommerce p-5">
+    <p>You are about to delete this Ad copy : <strong class="text-warning">{{my_adcopies.link}}</strong></p>
+    <form method ="POST">{% csrf_token %}
+        <input type="submit" value="Delete" class="btn btn-danger border">
+    </form>
+    <a href="{% url 'fb:adcopies' %}" class="btn btn-warning border text-light">Go Back</a>
+</div>
+{% endblock %}
