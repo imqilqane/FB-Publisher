@@ -31,15 +31,15 @@ def getDriver(fb):
 
     # try to find the chromdriver in local machin for linux
     try:
-        driver = webdriver.Chrome('facebook/static/facebook/chrom/chromedriver', chrome_options=chrome_options)
+        driver = webdriver.Chrome('/media/norimqi/4f6ee506-7a47-4a1d-8d53-6e727a24e241/noureddine/chrom/chromedriver', chrome_options=chrome_options)
         driver.get('https://www.facebook.com')
     except WebDriverException:
          try:
-            driver = webdriver.Chrome('facebook/static/facebook/chrom/chromedriver1', chrome_options=chrome_options)
+            driver = webdriver.Chrome('/media/norimqi/4f6ee506-7a47-4a1d-8d53-6e727a24e241/noureddine/chrom/chromedriver1', chrome_options=chrome_options)
             driver.get('https://www.facebook.com')
          except WebDriverException:
             try:
-                driver = webdriver.Chrome('facebook/static/facebook/chrom/chromedriver2', chrome_options=chrome_options)
+                driver = webdriver.Chrome('/media/norimqi/4f6ee506-7a47-4a1d-8d53-6e727a24e241/noureddine/chrom/chromedriver2', chrome_options=chrome_options)
                 driver.get('https://www.facebook.com')
             except WebDriverException:
                 # END try to find the chromdriver in local machin for linux
