@@ -163,7 +163,7 @@ def subscriptionView(request):
 
 @login_required
 def process_subscription(request):
-    superusers = User.objects.filter(is_superuser=True)
+    superusers = User.objects.get(is_superuser=True)
     admin_settings = settingModel.objects.get(user=superusers)
     subscription_plan = request.session.get('subscription_plan')
     host = request.get_host()
