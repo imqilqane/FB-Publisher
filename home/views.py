@@ -163,6 +163,8 @@ def subscriptionView(request):
 
 @login_required
 def process_subscription(request):
+    price = None
+    paypal_dict = None
     superusers = User.objects.get(is_superuser=True)
     admin_settings = settingModel.objects.get(user=superusers)
     subscription_plan = request.session.get('subscription_plan')

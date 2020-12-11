@@ -139,13 +139,11 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR , 'media')
 CRISPY_TEMPLATE_PACK= 'bootstrap4'
 LOGIN_URL='/login'
-PAYPAL_RECEIVER_EMAIL = 'sb-438sfy3666446@business.example.com'
 
+PAYPAL_RECEIVER_EMAIL = 'sb-fqspl3682354@business.example.com'
 PAYPAL_TEST = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'contact.fbpublisher@gmail.com'
 EMAIL_USE_TLS = True
