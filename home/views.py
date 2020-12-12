@@ -32,7 +32,7 @@ def addYearToStartDate():
 
 def homeView(request):
 
-    return render(request, 'home/index.html', {'title':'money crasher'})
+    return render(request, 'home/index.html', {'title':'Fb Publisher'})
 
 def matchPass(pass1 , pass2):
     return pass1 == pass2
