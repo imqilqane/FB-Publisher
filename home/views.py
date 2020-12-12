@@ -152,6 +152,10 @@ def logoutView(request):
 
 @login_required
 def subscriptionView(request):
+    my_profile = profile.objects.get(user = request.user)
+    if my_profile.profile_subscription and my_profile.profile_subscription.paid and my_profile.subscription_status == 'active' :
+        messages.info(request, 'you have an active subscription')
+        return redirect('dashboard:dashboard')
     if request.method == 'POST':
         f = SubscriptionForm(request.POST)
         if f.is_valid():
@@ -163,6 +167,10 @@ def subscriptionView(request):
 
 @login_required
 def process_subscription(request):
+    my_profile = profile.objects.get(user = request.user)
+    if my_profile.profile_subscription and my_profile.profile_subscription.paid and my_profile.subscription_status == 'active' :
+        messages.info(request, 'you have an active subscription')
+        return redirect('dashboard:dashboard')
     price = None
     paypal_dict = None
     superusers = User.objects.get(is_superuser=True)
