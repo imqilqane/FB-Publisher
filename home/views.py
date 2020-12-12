@@ -269,17 +269,21 @@ def payment_done(request):
 def you_canceled_payment(request):
     return render(request, 'home/you_canceled_payment.html')
 
-
+@login_required
 def settingsView(request):
-    settings = settingModel2.objects.filter(user = request.user)
+    try:
+        settings = settingModel2.objects.get(user = request.user)
 
-    context = {
-        'settings':settings,
-        'title':'settings'
-        
-    }
+        context = {
+            'settings':settings,
+            'title':'settings'
+            
+        }
 
-    return render(request, 'home/settings.html', context)
+        return render(request, 'home/settings.html', context)
+    except:
+        messages.info(request, 'you should singin frist')
+        return redirect('home:login')
 
 def clear_name(ele):
     new_ele = []
@@ -290,81 +294,90 @@ def clear_name(ele):
             new_ele.append(i)
     return ''.join(new_ele)
 
+@login_required
 def editSettingsView(request):
-    user = request.user
-    my_profile = profile.objects.get(user=user)
-    settings = settingModel2.objects.get(user = request.user)
-    if request.method == 'POST':
-        groups_per_time = int(clear_name(request.POST.get('groups_per_time')))
-        posts_per_time = int(clear_name(request.POST.get('posts_per_time')))
-        to_wait_after_each_join = int(clear_name(request.POST.get('to_wait_after_each_join')))
-        to_wait_after_each_post = int(clear_name(request.POST.get('to_wait_after_each_post')))
-        settings.group_join_per_time = groups_per_time
-        settings.post_per_time = posts_per_time
-        settings.to_wait_after_each_join = to_wait_after_each_join
-        settings.to_wait_after_each_post = to_wait_after_each_post
-        settings.save()
+    try:
+        user = request.user
+        my_profile = profile.objects.get(user=user)
+        settings = settingModel2.objects.get(user = request.user)
+        if request.method == 'POST':
+            groups_per_time = int(clear_name(request.POST.get('groups_per_time')))
+            posts_per_time = int(clear_name(request.POST.get('posts_per_time')))
+            to_wait_after_each_join = int(clear_name(request.POST.get('to_wait_after_each_join')))
+            to_wait_after_each_post = int(clear_name(request.POST.get('to_wait_after_each_post')))
+            settings.group_join_per_time = groups_per_time
+            settings.post_per_time = posts_per_time
+            settings.to_wait_after_each_join = to_wait_after_each_join
+            settings.to_wait_after_each_post = to_wait_after_each_post
+            settings.save()
 
-    context = {
-        'title':'edit settings',
-        'settings': settings,
-        'my_profile': my_profile,
-        'groups_per_time' : settings.group_join_per_time,
-        'posts_per_time' : settings.post_per_time,
-        'to_wait_after_each_join': settings.to_wait_after_each_join,
-        'to_wait_after_each_post': settings.to_wait_after_each_post,
-    }
+        context = {
+            'title':'edit settings',
+            'settings': settings,
+            'my_profile': my_profile,
+            'groups_per_time' : settings.group_join_per_time,
+            'posts_per_time' : settings.post_per_time,
+            'to_wait_after_each_join': settings.to_wait_after_each_join,
+            'to_wait_after_each_post': settings.to_wait_after_each_post,
+        }
 
-    return render(request, 'home/edit_settings.html', context)
+        return render(request, 'home/edit_settings.html', context)
+
+    except:
+        messages.info(request, 'you should singin frist')
+        return redirect('home:login')
 
 def same_pass(pass1, pass2):
     return pass1 == pass2
 
-
+@login_required
 def prfileView(request):
-    
-    user = request.user
-    my_profile = profile.objects.get(user=user)
+    try : 
+        user = request.user
+        my_profile = profile.objects.get(user=user)
 
 
-    if request.method == 'POST' :
-        first_name = request.POST.get("account-fn")
-        last_name =  request.POST.get("account-ln")
-        email = request.POST.get("account-email")
-        username = request.POST.get("account-phone")
-        password1 = request.POST.get("account-pass")
-        password2 = request.POST.get("account-confirm-pass")
-        print(clear_name(first_name))
-        user.first_name = first_name,
-        if password1 != '' and password2 != '' and same_pass(password1, password2) and len(password2) >= 8 :
-                user.first_name = clear_name(first_name)
-                user.last_name = clear_name(last_name)
-                user.email = clear_name(email)
-                user.username = clear_name(username)
-                user.set_password(clear_name(password1))
-                user.save()
-        elif password1 == '' and password2 == '':
-                user.first_name = clear_name(first_name)
-                user.last_name = clear_name(last_name)
-                user.email = clear_name(email)
-                user.username = clear_name(username)
-                user.save()
-        else:
-            messages.warning(request, 'the password are not the same or your password len is less than 8 chars')
+        if request.method == 'POST' :
+            first_name = request.POST.get("account-fn")
+            last_name =  request.POST.get("account-ln")
+            email = request.POST.get("account-email")
+            username = request.POST.get("account-phone")
+            password1 = request.POST.get("account-pass")
+            password2 = request.POST.get("account-confirm-pass")
+            print(clear_name(first_name))
+            user.first_name = first_name,
+            if password1 != '' and password2 != '' and same_pass(password1, password2) and len(password2) >= 8 :
+                    user.first_name = clear_name(first_name)
+                    user.last_name = clear_name(last_name)
+                    user.email = clear_name(email)
+                    user.username = clear_name(username)
+                    user.set_password(clear_name(password1))
+                    user.save()
+            elif password1 == '' and password2 == '':
+                    user.first_name = clear_name(first_name)
+                    user.last_name = clear_name(last_name)
+                    user.email = clear_name(email)
+                    user.username = clear_name(username)
+                    user.save()
+            else:
+                messages.warning(request, 'the password are not the same or your password len is less than 8 chars')
 
-    context = {
-        'title':'profile',
-        'user':user,
-        'my_profile':my_profile,
-        'first_name':clear_name(user.first_name),
-        'last_name' : clear_name(user.last_name),
-        'email' : clear_name(user.email),
-        'username' : clear_name(user.username),
-    }
+        context = {
+            'title':'profile',
+            'user':user,
+            'my_profile':my_profile,
+            'first_name':clear_name(user.first_name),
+            'last_name' : clear_name(user.last_name),
+            'email' : clear_name(user.email),
+            'username' : clear_name(user.username),
+        }
 
-    return render(request, 'home/profile.html', context)
+        return render(request, 'home/profile.html', context)
+    except:
+        messages.info(request, 'you should singin frist')
+        return redirect('home:login')
 
-
+@login_required
 def couponView(request):
     if request.method == 'POST':
         code = request.POST.get('code')

@@ -306,11 +306,14 @@ def joinGroupsTask(self, pk):
                         ############################################################
                         
                         post = None
-                        while post is None:
+                        trys = 0
+                        while post is None and trys < 60:
                             try:
                                 post = driver.find_element_by_xpath('//*[@aria-posinset="1"]')
                             except:
                                 post = None
+                                time.sleep(1)
+                                trys += 1
                                 print('None 313')
                         post_autor = post.find_element_by_tag_name('h2').text
                         if fb.fullname in post_autor :
@@ -822,7 +825,8 @@ def StartCompaignTask(self, pk):
                             post = None
                             trying_limit = 0
                             print('looking for post author')
-                            while post is None :
+                            trys = 0
+                            while post is None and trys < 60:
                                 try:
                                     post = driver.find_element_by_xpath('//*[@aria-posinset="1"]')
                                     post_autor = post.find_element_by_tag_name('h2').text
@@ -835,6 +839,8 @@ def StartCompaignTask(self, pk):
                                 except:
                                     post = None
                                     print('none 735')
+                                    trys += 1
+                                    time.sleep(1)
                                 trying_limit += 1
                             
                             # if 1 post author is the fb account user
@@ -1133,8 +1139,9 @@ def StartCompaignTask(self, pk):
                             # looking for the 1st post author
                             post = None
                             trying_limit = 0
+                            trys = 0
                             print('looking for post author')
-                            while post is None :
+                            while post is None and trys < 60:
                                 try:
                                     post = driver.find_element_by_xpath('//*[@aria-posinset="1"]')
                                     post_autor = post.find_element_by_tag_name('h2').text
@@ -1145,6 +1152,8 @@ def StartCompaignTask(self, pk):
                                 except:
                                     post = None
                                     print('none 956')
+                                    time.sleep(1)
+                                    trys += 1
                                 trying_limit += 1
 
                             # if the post author is the fb owner
@@ -1593,12 +1602,15 @@ def checkPostedApprovedAndChangeItTask(self, pk):
                 driver.get(notification)
                 time.sleep(2)
                 post = None
-                while post == None:
+                trys = 0
+                while post is None and trys < 60:
                     try:
                         post = driver.find_element_by_xpath('//*[@aria-posinset="1"]')
                     except:
                         post = None
-                        print('post1644 = none')
+                        time.sleep(1)
+                        trys += 1
+                        print('None 1607')
 
                 # get the code 
                 post_text = post.text

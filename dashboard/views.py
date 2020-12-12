@@ -84,18 +84,28 @@ def dashboardView(request):
         return redirect('home:subscription')
 
 
+@login_required
 def addGroupToFavorate(request, pk):
-    group = myGroupsModel.objects.get(user = request.user, id=pk)
+    try:
+        group = myGroupsModel.objects.get(user = request.user, id=pk)
 
-    group.favorated = True
-    group.save()
-    messages.success(request,'group is added to favorated list')
-    return redirect('dashboard:dashboard')
+        group.favorated = True
+        group.save()
+        messages.success(request,'group is added to favorated list')
+        return redirect('dashboard:dashboard')
+    except:
+        messages.info(request, 'this group do not exists')
+        return redirect('dashboard:dashboard')
 
+@login_required
 def removeGroupfromFavorate(request, pk):
-    group = myGroupsModel.objects.get(user = request.user, id=pk)
+    try:
+        group = myGroupsModel.objects.get(user = request.user, id=pk)
 
-    group.favorated = False
-    group.save()
-    messages.success(request,'group is removed from favorated list')
-    return redirect('dashboard:dashboard')
+        group.favorated = False
+        group.save()
+        messages.success(request,'group is removed from favorated list')
+        return redirect('dashboard:dashboard')
+    except:
+        messages.info(request, 'this group do not exists')
+        return
