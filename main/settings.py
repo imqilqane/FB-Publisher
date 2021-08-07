@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django_celery_results',
     'celery_progress',
     'embed_video',
+    'live_support',
 ]
 
 MIDDLEWARE = [

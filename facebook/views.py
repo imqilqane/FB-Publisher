@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.contrib import messages
 from .models import (
     fbAccountsModel, 
@@ -39,6 +40,41 @@ from .tasks import (
     )
 import random, string, re , os, time
 # Create your views here.
+
+def getImg(request):
+    img = imageGalery.objects.all()
+    the_img = img[0].image.name
+    chrome_options = webdriver.ChromeOptions()
+    prefs = {"profile.default_content_setting_values.notifications" : 2}
+    chrome_options.add_experimental_option("prefs",prefs)
+    driver = None
+
+    # try to find the chromdriver in local machin for linux
+    try:
+        driver = webdriver.Chrome('facebook/static/facebook/chrom/chromedriver', chrome_options=chrome_options)
+        driver.get('https://imgbb.com/')
+    except :
+         try:
+            driver = webdriver.Chrome('facebook/static/facebook/chrom/chromedriver1', chrome_options=chrome_options)
+            driver.get('https://imgbb.com/')
+         except :
+            try:
+                driver = webdriver.Chrome('facebook/static/facebook/chrom/chromedriver2', chrome_options=chrome_options)
+                driver.get('https://imgbb.com/')
+            except:
+                pass
+
+    upload = None
+    while upload == None:
+        try:
+            upload = driver.find_element_by_id('anywhere-upload-input')
+        except:
+            upload = None
+            print('none')
+    upload.send_keys(the_img)
+    print(f' this is path {the_img}')
+
+    return HttpResponse("<h1>it worked</h1>") 
 
 def docsView(request):
     doc = Docs.objects.all()
@@ -491,7 +527,7 @@ def imageGaleryView(request):
             images = imageGalery.objects.filter(user=request.user)
             copy_write = copyWriting.objects.filter(user=request.user)
             if request.method == 'POST':
-                image = request.POST.get('img')
+                image = request.FILES.get('img')
                 niche = request.POST.get('niche')
                 my_niche = nichesModel.objects.filter(user=request.user, niche=niche)
                 imageGalery.objects.create(
@@ -502,7 +538,6 @@ def imageGaleryView(request):
                 )
                 
             context = {
-                'title':'gellary',
                 'niches':niches,
                 'images':images,
                 'copy_write':copy_write
@@ -604,7 +639,7 @@ def adCopyView(request):
             niches = nichesModel.objects.filter(user=request.user)
             if request.method == 'POST':
                 discription = request.POST.get('discription')
-                image = request.POST.get('img')
+                image = request.FILES.get('img')
                 link = request.POST.get('link')
                 niche = request.POST.get('niche')
                 my_niche = nichesModel.objects.filter(user=request.user, niche=niche)
@@ -621,7 +656,6 @@ def adCopyView(request):
             context = {
                 'my_adcopies':my_adcopies,
                 'niches':niches,
-                'titel':'adCopies'
             }
 
             return render(request, 'facebook/adcopy.html', context)
@@ -694,7 +728,6 @@ def EditAdCopyView(request, pk):
                 'my_adcopies':my_adcopies[0],
                 'form':form,
                 'niches':niches,
-                'titel':'edit adCopie'
             }
 
             return render(request, 'facebook/EditAdcopy.html', context)
@@ -705,6 +738,7 @@ def EditAdCopyView(request, pk):
     else:
         messages.warning(request, "you don't have a subscription make sure to have one and if you think some thing wrong contact us") 
         return redirect('home:subscription')
+
 
 
 

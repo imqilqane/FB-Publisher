@@ -69,10 +69,9 @@ class testingPostsModel(models.Model):
 
 class imageGalery(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    image = models.CharField (max_length=300, null=True, blank=True)
+    image = models.ImageField (default='' , upload_to='picturs' )
     nich = models.ForeignKey(nichesModel, on_delete=models.CASCADE, null=True)
     str_nich = models.CharField(max_length=100, blank=True, null=True)
-    img = models.ImageField(upload_to='images', default='img2')
 
     def __str__(self):
         return f"{self.user.username}'s image"
@@ -91,7 +90,7 @@ class adCopy(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     descriprtion = models.CharField(max_length=200)
     link = models.CharField(max_length=100)
-    image = models.CharField(max_length=300, null=True, blank=True)
+    image = models.ImageField (default='' , upload_to='picturs' , blank = True, null = True)
     niche = models.ForeignKey(nichesModel, on_delete=models.CASCADE, null=True)
     number_of_grouos_posted_in = models.IntegerField(default=0)
     used = models.BooleanField(default=False)

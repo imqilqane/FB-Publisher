@@ -7,6 +7,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(('home.urls', 'home'), namespace = 'home')),
+    path('support/', include('live_support.urls')),
     path('task-progress', include('celery_progress.urls')),
     path('facebook/', include(('facebook.urls', 'facebook'), namespace = 'fb')),
     path('dashboard/', include(('dashboard.urls','dashboard'),namespace='dash')),

@@ -99,29 +99,24 @@ def joinGroupsTask(self, pk):
         groups_am_in_or_sent_request_to = myGroupsModel.objects.filter(user = request_user, facebook_account = fb)
         for group in groups_am_in_or_sent_request_to :
             groups_am_in_or_sent_request_to_list.append(group.group_link)
-        print('debug')
         data[fb.username] = {'need_awnsers': [],'send_request':[]}
-        print('debug 1')
         limit_for_fb_account = 0
         
         for niche in niches:
             quoted_nich = quote_plus(niche.niche)
             link = f"https://www.facebook.com/search/groups/?q={quoted_nich}"
-            print('debug')
             driver.get(link)
             time.sleep(1)
             page = driver.find_element_by_tag_name('html')
             for scroll in range(15):
                 page.send_keys(Keys.END)
                 time.sleep(1.5)
-            print('debug 3')
             groups_section = None
             while groups_section == None:
                 try:
                     groups_section = driver.find_element_by_xpath('//*[@id="mount_0_0"]/div/div[1]/div[1]/div[3]/div/div/div[1]/div[1]/div[2]/div')
                 except:
                     groups_section = None
-                    print('None 123')
             links =  groups_section.find_elements_by_tag_name('a')
             groups_links = []
             for group_link in links : 
@@ -141,14 +136,12 @@ def joinGroupsTask(self, pk):
                     driver.get(group_link_two)
                     time.sleep(2)
                     group_name = driver.find_element_by_xpath('//*[@id="mount_0_0"]/div/div[1]/div[1]/div[3]/div/div/div[1]/div[1]/div[1]/div[2]/div/div/div/div[1]/div/div/div[1]/h2/span')
-                    print('debug 3')
                     
                     try :
                         # this will work if the user is not in the groupe 
                         join = driver.find_element_by_xpath('//*[@aria-label="Join Group"]')
                         join.click()
                         time.sleep(3)
-                        print('debug 4')
                         try:    
                             # this will work if facebook shows a pop uo tells that you need to choise if you wanna join by profile or page if you have some
                             choose_how_to_join = None
@@ -157,7 +150,6 @@ def joinGroupsTask(self, pk):
                                 try:
                                     choose_how_to_join = driver.find_element_by_xpath('//*[@aria-label="Choose How to Join Group"]')
                                 except:
-                                    print('debug 5')
                                     choose_how_to_join = None
                                     choose_how_to_join_limits += 1
                                     time.sleep(4)
@@ -173,20 +165,16 @@ def joinGroupsTask(self, pk):
                             # this will work if the user dont wanna join all groups and skip awnsering the questions
                             try:
                                 # if he find QA he will close it and cancel the request 
-                                print('ikhan')
                                 questions_pop_up = None
                                 questions_pop_up_limits = 0
                                 while questions_pop_up == None and questions_pop_up_limits < 4:
                                     try:
                                         questions_pop_up = driver.find_element_by_xpath('/html/body/div[1]/div/div[1]/div[1]/div[4]/div/div/div[1]/div/div[2]/div/div/div')
                                     except:
-                                        print('questions_pop_up')
                                         questions_pop_up = None
                                         questions_pop_up_limits += 1
                                         time.sleep(4)
-                                print('ikhan 2')
                                 if questions_pop_up != None:
-                                    print('ikhan 3')
                                     data[fb.username]['need_awnsers'].append([group_link_two, group_name.text])
                                     time.sleep(1)          
                                     close = driver.find_element_by_xpath('//*[@id="mount_0_0"]/div/div[1]/div[1]/div[4]/div/div/div[1]/div/div[2]/div/div/div/div[2]')
@@ -194,15 +182,12 @@ def joinGroupsTask(self, pk):
                                     time.sleep(1)
                                     exit_without_awnser = driver.find_element_by_xpath('//*[@id="mount_0_0"]/div/div[1]/div[1]/div[4]/div/div/div[1]/div/div[2]/div/div/div/div[3]/div[2]/div[2]').click()
                                     cancel = driver.find_element_by_xpath('//*[@id="mount_0_0"]/div/div[1]/div[1]/div[3]/div/div/div[1]/div[1]/div[3]/div/div/div/div[2]/div/div/div[1]/div').click()
-                                    print('bugbig')
                                 else:
                                     # this is just to cause and error to pass to the excepte
                                     driver.find_element_by_xpath('/html/body/div[1]/div/div[1]/div[1]/div[4]/div/div/div[1]/div/div[2]/div/div/div')
                             except:
                                     # if he dont find QA he wont cancel the request and he will add the groups to sent request list
-                                    print('debug 66')    
                                     data[fb.username]['send_request'].append([group_link_two, group_name.text])
-                                    print('debug 77')    
                                     myGroupsModel.objects.create(
                                         user = request_user,
                                         facebook_account = fb ,
@@ -216,16 +201,12 @@ def joinGroupsTask(self, pk):
                                     old_persontage += persontage_to_add
                                     # add the persentage here
 
-                                    print('debug 88')
                                     limit_for_fb_account += 1
                                     count += 1
-                                    print('wait_after_each_join', wait_after_each_join)
                                     time.sleep(wait_after_each_join)
                         else:
                             # if the user wanna join all groups he will skip closing the qa pop up
-                            print('debug 6')
                             data[fb.username]['send_request'].append([group_link_two, group_name.text])
-                            print('debug 7')
                             myGroupsModel.objects.create(
                                 user = request_user,
                                 facebook_account = fb ,
@@ -234,10 +215,8 @@ def joinGroupsTask(self, pk):
                                 group_link = group_link_two ,
                             )
                 
-                            print('debug 11')
                             limit_for_fb_account = 0
                             count += 1
-                            print('wait_after_each_join', wait_after_each_join)
                             time.sleep(wait_after_each_join)
                                                                     
                     except : 
@@ -263,7 +242,6 @@ def joinGroupsTask(self, pk):
                                 posting = driver.find_element_by_xpath('//*[@aria-label="Post"]')
                             except:
                                 posting = None
-                                print('None 265')
                         used_copy_Write = random.choices(to_test_copy_write)
                         actions = ActionChains(driver)
                         for item in used_copy_Write[0].copy:
@@ -279,7 +257,6 @@ def joinGroupsTask(self, pk):
 
                         limit_for_fb_account += 1
                         count += 1
-                        print('wait_after_each_join', wait_after_each_join)
                         time.sleep(wait_after_each_join)
                         data[fb.username]['send_request'].append([group_link_two, group_name.text])
                         ############################################################
@@ -295,7 +272,6 @@ def joinGroupsTask(self, pk):
                                     posting = None
                                 except:
                                     posting = True
-                                    print('post did not banded')
                             if posting == None:   
                                 fb.accountStatus = 'banded from posting'
                                 fb.save()
@@ -314,7 +290,6 @@ def joinGroupsTask(self, pk):
                                 post = None
                                 time.sleep(1)
                                 trys += 1
-                                print('None 313')
                         post_autor = post.find_element_by_tag_name('h2').text
                         if fb.fullname in post_autor :
                             this_group.posting_with_permestion = False
@@ -326,7 +301,6 @@ def joinGroupsTask(self, pk):
                     except:
                         pass
                 time.sleep(5)
-                print('groups : ', data)
                 
     driver.close()
     return data
@@ -419,7 +393,6 @@ def checkIfGroupsApprovedTask(self, pk):
                             time.sleep(5)
                             invite = None
                             trying_limits += 1
-                            print('no invite')
 
                     if invite == None:
                         # we will cause an error if we did not find the invit button so we go out the try
@@ -434,7 +407,6 @@ def checkIfGroupsApprovedTask(self, pk):
                             add_post_button = driver.find_element_by_xpath('//*[@id="mount_0_0"]/div/div[1]/div[1]/div[3]/div/div/div[1]/div[1]/div[4]/div/div/div/div/div[1]/div[1]/div/div/div/div[1]/div')
                         except:
                             add_post_button = None
-                            print('None 432')
 
                     add_post_button.click()
 
@@ -444,7 +416,6 @@ def checkIfGroupsApprovedTask(self, pk):
                             posting = driver.find_element_by_xpath('//*[@aria-label="Post"]')
                         except:
                             posting = None
-                            print('None 442')
                     used_copy_Write = random.choices(to_test_copy_write)
                     actions = ActionChains(driver)
                     
@@ -466,7 +437,6 @@ def checkIfGroupsApprovedTask(self, pk):
                                 posting = None
                             except:
                                 posting = True
-                                print('post did not banded')
                         if posting == None:   
                             fb.accountStatus = 'banded from posting'
                             fb.save()
@@ -488,7 +458,6 @@ def checkIfGroupsApprovedTask(self, pk):
                                 post_tries += 1
                         except:
                             post = None
-                            print('none 486')
         
                     if fb.fullname in post_autor :
                         group.posting_with_permestion = False
@@ -499,7 +468,6 @@ def checkIfGroupsApprovedTask(self, pk):
                     time.sleep(3)
 
                     # time to wait after each post
-                    print(f'wait for {wait_after_each_post}')
                     time.sleep(wait_after_each_post)
                 except:
                     try:
@@ -516,7 +484,6 @@ def checkIfGroupsApprovedTask(self, pk):
                 old_persontage += persontage_to_add
                 # add the persentage here
         else:
-            print( f"you don't have any groups in this fb account {fb.username} so make sure you do joined groups using our tool")
             continue
     driver.close()
     return 'Done'
@@ -605,7 +572,6 @@ def StartCompaignTask(self, pk):
                 if posting_limits >= setting.post_per_time :
                     break
 
-                print('debug')
                 user_groups = myGroupsModel.objects.filter(user = request_user, facebook_account = fb, approved = True, )
                 user_groups_len = len(user_groups)
 
@@ -632,7 +598,6 @@ def StartCompaignTask(self, pk):
                         posting_with_permestion = True,
                         )
 
-                    print('debug 1')
                     if len(groups_with_no_admin) > 0:
 
                         # loop trough the groups that did not need admin approvment
@@ -649,7 +614,6 @@ def StartCompaignTask(self, pk):
                                     adcopy = ad_copy , 
                                     posting_group = group
                                     )
-                                print('this_ad_alredy_posted_in_this_group')
                                 continue
                             except:
                                 pass
@@ -664,7 +628,6 @@ def StartCompaignTask(self, pk):
                                 driver.find_element_by_xpath('//*[@aria-label="Go to News Feed"]')
                                 group.active = False
                                 group.save()
-                                print('group band the user')
                                 continue
                             except:
                                 pass
@@ -682,7 +645,6 @@ def StartCompaignTask(self, pk):
                                     except :
                                         add_post_button = None
                                         time.sleep(2)
-                                        print('none 651')
                                     trys += 1                     
                                 add_post_button.click()
                                 time.sleep(12)
@@ -710,7 +672,6 @@ def StartCompaignTask(self, pk):
                                         upload_img = driver.find_element_by_xpath("//input[@type='file']")
                                     except :
                                         upload_img = None
-                                        print('none')  
 
                                 # define punsh of vars  
                                 to_change_copyWrite = copyWriting.objects.filter(user=request_user, str_nich = group.group_nich)
@@ -732,7 +693,6 @@ def StartCompaignTask(self, pk):
                                             posting = driver.find_element_by_xpath('//*[@aria-label="Post"]')
                                         except:
                                             posting = None
-                                            print('none 909')
                                     time.sleep(5)
 
                                     # while the typing marker is read, write the adcopy and the link and post it then sleep for a while
@@ -765,7 +725,6 @@ def StartCompaignTask(self, pk):
                                         except :
                                             add_post_button = None
                                             time.sleep(2)
-                                            print('none 651')
                                         trys += 1                     
                                     add_post_button.click()
                                     time.sleep(12)
@@ -777,7 +736,6 @@ def StartCompaignTask(self, pk):
                                             posting = driver.find_element_by_xpath('//*[@aria-label="Post"]')
                                         except:
                                             posting = None
-                                            print('none 909')
                                     time.sleep(5)
 
                                     # while the typing marker is read, write the adcopy and the link and post it then sleep for a while
@@ -812,7 +770,6 @@ def StartCompaignTask(self, pk):
                                         posting = None
                                     except:
                                         posting = True
-                                        print('post did not banded')
                                 if posting == None:   
                                     fb.accountStatus = 'banded from posting'
                                     fb.save()
@@ -824,7 +781,6 @@ def StartCompaignTask(self, pk):
                             # looking 1st post author
                             post = None
                             trying_limit = 0
-                            print('looking for post author')
                             trys = 0
                             while post is None and trys < 60:
                                 try:
@@ -833,12 +789,8 @@ def StartCompaignTask(self, pk):
                                     if fb.fullname not in post_autor and trying_limit < 12:
                                         time.sleep(5)
                                         post = None 
-                                        print('post author is not fb account')
-                                        print('post author', post_autor)
-                                        print('fb.fullname', fb.fullname)
                                 except:
                                     post = None
-                                    print('none 735')
                                     trys += 1
                                     time.sleep(1)
                                 trying_limit += 1
@@ -854,14 +806,12 @@ def StartCompaignTask(self, pk):
                                 # if this group posting permetion turn to need admin approvment change it and continue 
                                 group.posting_with_permestion = True
                                 group.save()
-                                print('creat compaign for this ad copy 744')
                                 postedAdCompaigns.objects.create(
                                     user = request_user ,
                                     adcopy = ad_copy,
                                     posting_group = group,
                                     fb_account = fb,
                                 )
-                                print('wait_after_each_post :',wait_after_each_post)
                                 time.sleep(wait_after_each_post)
                                 continue
                             
@@ -874,7 +824,6 @@ def StartCompaignTask(self, pk):
                                     element = post.find_element_by_xpath('//*[@aria-label="Send this to friends or post it on your Timeline."]')
                                 except:
                                     element = None
-                                    print('none 763')
                                     time.sleep(5)
                                     element_tries += 1
 
@@ -891,7 +840,6 @@ def StartCompaignTask(self, pk):
                                         div[1]/div/div[3]/div""")
                                     except:
                                         send_in_messanger = None
-                                        print('None 776')
                                 send_in_messanger.click()
                                 time.sleep(2)
                                 message_pop_up = None
@@ -900,7 +848,6 @@ def StartCompaignTask(self, pk):
                                         message_pop_up = driver.find_element_by_xpath('//*[@aria-label="Send in Messenger"]')
                                     except:
                                         message_pop_up = None
-                                        print('None 4')
                                 
                                 # get the post link and creat the postedAdCompaigns
                                 post_link = None
@@ -911,8 +858,6 @@ def StartCompaignTask(self, pk):
                                         /div[1]/div/div/div[1]/div[1]""")                    
                                     except:
                                         post_link = None
-                                        print('None 793')
-                                print('creat compaign for this ad copy 795')
                                 postedAdCompaigns.objects.create(
                                     user = request_user ,
                                     adcopy = ad_copy,
@@ -951,8 +896,6 @@ def StartCompaignTask(self, pk):
                                     pattren = '[gm\.]([0-9]+)'
                                     link = re.findall(pattren, photo_link)
                                     full_link = group.group_link  + 'permalink/' + link[0]
-                                    print(f'full_link {full_link}')
-                                    print('creat compaign for this ad copy 830')
                                     postedAdCompaigns.objects.create(
                                         user = request_user ,
                                         adcopy = ad_copy,
@@ -964,7 +907,6 @@ def StartCompaignTask(self, pk):
                                 
                                 # if we cant have the link create postedAdCompaigns with no link but posted
                                 except:
-                                    print('creat posted ad compaign with no link 840')
                                     postedAdCompaigns.objects.create(
                                         user = request_user ,
                                         adcopy = ad_copy,
@@ -976,7 +918,6 @@ def StartCompaignTask(self, pk):
                             # add 1 to the posting limits and sleep
                             posting_limits += 1
                             if len(groups_with_no_admin) > 0 :
-                                print(f'wait for {wait_after_each_post} seconds')
                                 time.sleep(wait_after_each_post)
 
                             
@@ -1033,7 +974,6 @@ def StartCompaignTask(self, pk):
                                     upload_img = driver.find_element_by_xpath("//input[@type='file']")
                                 except :
                                     upload_img = None
-                                    print('none')  
                             
                             # define some vars 
                             to_change_copyWrite = copyWriting.objects.filter(user=request_user, str_nich = group.group_nich)
@@ -1056,7 +996,6 @@ def StartCompaignTask(self, pk):
                                         posting = driver.find_element_by_xpath('//*[@aria-label="Post"]')
                                     except:
                                         posting = None
-                                        print('none 909')
                                 time.sleep(5)
 
                                 # pass the dumy copy write and code
@@ -1087,7 +1026,6 @@ def StartCompaignTask(self, pk):
                                     except :
                                         add_post_button = None
                                         time.sleep(2)
-                                        print('none 651')
                                     trys += 1                     
                                 add_post_button.click()
                                 time.sleep(12)
@@ -1099,7 +1037,6 @@ def StartCompaignTask(self, pk):
                                         posting = driver.find_element_by_xpath('//*[@aria-label="Post"]')
                                     except:
                                         posting = None
-                                        print('none 909')
                                 time.sleep(5)
                                 
                                 # pass the dumy copy write and code
@@ -1128,7 +1065,6 @@ def StartCompaignTask(self, pk):
                                         posting = None
                                     except:
                                         posting = True
-                                        print('post did not banded')
                                 if posting == None:   
                                     fb.accountStatus = 'banded from posting'
                                     fb.save()
@@ -1140,7 +1076,6 @@ def StartCompaignTask(self, pk):
                             post = None
                             trying_limit = 0
                             trys = 0
-                            print('looking for post author')
                             while post is None and trys < 60:
                                 try:
                                     post = driver.find_element_by_xpath('//*[@aria-posinset="1"]')
@@ -1148,10 +1083,8 @@ def StartCompaignTask(self, pk):
                                     if fb.fullname not in post_autor and trying_limit < 12:
                                         time.sleep(5)
                                         post = None 
-                                        print('post author is not fb account')
                                 except:
                                     post = None
-                                    print('none 956')
                                     time.sleep(1)
                                     trys += 1
                                 trying_limit += 1
@@ -1164,7 +1097,6 @@ def StartCompaignTask(self, pk):
                                 group.save()
 
                                 # create postedAdCompaigns posted with code
-                                print('creat compaign for this ad copy 962')
                                 the_compagn = postedAdCompaigns.objects.create(
                                     user = request_user ,
                                     adcopy = ad_copy,
@@ -1193,7 +1125,6 @@ def StartCompaignTask(self, pk):
                                         element = post.find_element_by_xpath('//*[@aria-label="Send this to friends or post it on your Timeline."]')
                                     except:
                                         element = None
-                                        print('none 987')
                                         time.sleep(5)
                                         element_tries += 1
 
@@ -1211,7 +1142,6 @@ def StartCompaignTask(self, pk):
                                             div/div/div[1]/div/div[3]/div""")
                                         except:
                                             send_in_messanger = None
-                                            print('None 999')
                                     send_in_messanger.click()
                                     time.sleep(2)
 
@@ -1221,7 +1151,6 @@ def StartCompaignTask(self, pk):
                                             message_pop_up = driver.find_element_by_xpath('//*[@aria-label="Send in Messenger"]')
                                         except:
                                             message_pop_up = None
-                                            print('None 1008')
 
                                     # get the lick from lessanger pop up
                                     post_link = None
@@ -1232,7 +1161,6 @@ def StartCompaignTask(self, pk):
                                             /div[1]/div/div/div[1]/div[1]""")                    
                                         except:
                                             post_link = None
-                                            print('None 1015')
 
                                     # pass the lick to the posted campain and save
                                     the_compagn.post_link = post_link.text
@@ -1253,7 +1181,6 @@ def StartCompaignTask(self, pk):
                                             element = post.find_element_by_xpath('//*[@aria-label="Close"]')
                                         except:
                                             element = None
-                                            print('none 1032')
                                             time.sleep(5)
                                             element_tries += 1
                                     driver.execute_script("arguments[0].click();", element)
@@ -1264,7 +1191,6 @@ def StartCompaignTask(self, pk):
                                     try:
 
                                         # get the links from the post
-                                        print('creat posted ad compaign with link 1038')
                                         tries = 0
                                         post_links = None
                                         post_link_list = []
@@ -1289,7 +1215,6 @@ def StartCompaignTask(self, pk):
                                         pattren = '[gm\.]([0-9]+)'
                                         link = re.findall(pattren, photo_link)
                                         full_link = group.group_link  + 'permalink/' + link[0]
-                                        print(f'full_link {full_link}')
                                         the_compagn.post_link = full_link
                                         the_compagn.posted = True
                                         the_compagn.save()
@@ -1298,7 +1223,6 @@ def StartCompaignTask(self, pk):
                                     except:
 
                                         # creat posted ad compaign with no link
-                                        print('creat posted ad compaign with no link')
                                         the_compagn.posted = True
                                         the_compagn.save()
 
@@ -1321,7 +1245,6 @@ def StartCompaignTask(self, pk):
                                         /div[3]/div/div/div[2]/div/div/div[1]/div[1]/div/div/div[1]/div/div[1]/div/div[2]""")
                                     except:
                                         edite = None
-                                        print("edite")      
                                 edite.click()
 
                                 # get the edit form pop up
@@ -1341,7 +1264,6 @@ def StartCompaignTask(self, pk):
                                         div[2]/div[1]/div[1]/div[1]/div/div/div/div/div/div/div/div""")
                                     except:
                                         field = None 
-                                        print('none 1098')   
 
                                 # get the save button  
                                 save = None
@@ -1352,7 +1274,6 @@ def StartCompaignTask(self, pk):
                                         div/div[1]/div[3]/div[2]/div/div""")
                                     except:
                                         save = None    
-                                        print('none') 
 
                                 # get the x button that remove the pic if it exists
                                 remove_pic = None
@@ -1365,7 +1286,6 @@ def StartCompaignTask(self, pk):
                                     except:
                                         remove_pic = None 
                                         time.sleep(5)
-                                        print('none 1114', trying_limit)
                                         trying_limit += 1
                                 
                                 # remove pic if it is exists
@@ -1383,14 +1303,12 @@ def StartCompaignTask(self, pk):
                                             upload_img = driver.find_element_by_xpath("//div[@id='toolbarLabel']/following-sibling::div")
                                         except:
                                             upload_img = None
-                                            print(' none upload_img ')
                                     upload_img_field = None
                                     while upload_img_field == None:
                                         try:
                                             upload_img_field = upload_img.find_element_by_tag_name("input")
                                         except:
                                             upload_img_field = None
-                                            print(' none upload_img_field ')
                                     upload_img_field.send_keys(ad_copy.image)
 
                                 # delete the dumy ad cop  
@@ -1421,7 +1339,6 @@ def StartCompaignTask(self, pk):
                                             posting = None
                                         except:
                                             posting = True
-                                            print('post did not banded')
                                     if posting == None:   
                                         fb.accountStatus = 'banded from posting'
                                         fb.save()
@@ -1430,7 +1347,6 @@ def StartCompaignTask(self, pk):
                                     pass
 
                                 # sleep for a while then continue to next group                    
-                                print(f'wating for {wait_after_each_post}')
                                 time.sleep(wait_after_each_post)
                                 continue
                                 
@@ -1442,7 +1358,6 @@ def StartCompaignTask(self, pk):
                             
                             # continue as the group still have addmin permesion
                             # create postedAdCompaigns with the code and not posted
-                            print('creat compaign for this ad copy 1174')
                             postedAdCompaigns.objects.create(
                                 user = request_user ,
                                 adcopy = ad_copy,
@@ -1455,7 +1370,6 @@ def StartCompaignTask(self, pk):
 
                             # sleep for a while
                             if len(groups_with_admin) > 0  :
-                                print(f'wait for {wait_after_each_post} seconds')
                                 time.sleep(wait_after_each_post)
 
                             # adding the persontage to the class for real
@@ -1511,7 +1425,6 @@ def checkPostedApprovedAndChangeItTask(self, pk):
     while len(to_remplace_with) > 0:
         for fb in fb_accounts:
             # get the ad campaigns that posted with that fb and did not get approved yet
-            print('debug')
             to_remplace_with_for_this_fb = postedAdCompaigns.objects.filter(
                 user=request_user, 
                 posted=False, 
@@ -1521,10 +1434,8 @@ def checkPostedApprovedAndChangeItTask(self, pk):
             # if there is no ad campaigns that posted with that fb so sleep then move on
             if len(to_remplace_with_for_this_fb) == 0 :
                 time.sleep(400)
-                print('debug1')
                 continue
 
-            print('debug2')
 
             # get the driver
             driver = getDriver(fb)
@@ -1572,7 +1483,6 @@ def checkPostedApprovedAndChangeItTask(self, pk):
                                     my_notifs.append(notif)
                         except :
                             pass
-                        print(f'#################{i}#################')
             scroll()
 
             # get the notifs that mark to a post or photo aprrovment in a new list
@@ -1585,16 +1495,13 @@ def checkPostedApprovedAndChangeItTask(self, pk):
                             try:
                                 link =  notification.find_element_by_tag_name('a')
                                 url = link.get_attribute("href")
-                                print(url)
                                 post_approved_notification.append(url)
                             except:
                                 link = None
-                                print('none 1634')
                 except:
                     continue
             
             # loop trought post_approved_notification
-            print(f'post_approved_notification: {post_approved_notification}')
             for notification in post_approved_notification :
                 
                 # get the post
@@ -1610,7 +1517,6 @@ def checkPostedApprovedAndChangeItTask(self, pk):
                         post = None
                         time.sleep(1)
                         trys += 1
-                        print('None 1607')
 
                 # get the code 
                 post_text = post.text
@@ -1623,7 +1529,6 @@ def checkPostedApprovedAndChangeItTask(self, pk):
                 except :
 
                     # if we did not find adcampain that mach it so move on
-                    print('continue')
                     continue
 
                 # get the menu icon and click it
@@ -1638,7 +1543,6 @@ def checkPostedApprovedAndChangeItTask(self, pk):
                         div[1]/div[3]/div/div/div[2]/div/div/div[1]/div[1]/div/div/div[1]/div/div[1]/div/div[2]""")
                     except:
                         edite = None
-                        print('1662 none')
                 edite.click()
 
                 # get the field for writing
@@ -1650,7 +1554,6 @@ def checkPostedApprovedAndChangeItTask(self, pk):
                         /div[1]/div/div/div/div/div/div/div/div""")
                     except:
                         field = None    
-                        print('1671 none')  
 
                 # get the save button 
                 save = None
@@ -1660,7 +1563,6 @@ def checkPostedApprovedAndChangeItTask(self, pk):
                         div/div[1]/div/div[2]/div/div/div/form/div/div[1]/div/div/div[1]/div[3]/div[2]/div/div""")
                     except:
                         save = None    
-                        print('none 1678') 
 
                 # get the remove pic icon if exests
                 remove_pic = None
@@ -1672,7 +1574,6 @@ def checkPostedApprovedAndChangeItTask(self, pk):
                         /div/div[2]/div""" )
                     except:
                         remove_pic = None 
-                        print('none 1678')
                         trying_limit += 1
 
                 # if pic exists remove it
@@ -1710,14 +1611,12 @@ def checkPostedApprovedAndChangeItTask(self, pk):
                                     upload_img = driver.find_element_by_xpath("//div[@id='toolbarLabel']/following-sibling::div")
                                 except:
                                     upload_img = None
-                                    print(' none upload_img ')
                             upload_img_field = None
                             while upload_img_field == None:
                                 try:
                                     upload_img_field = upload_img.find_element_by_tag_name("input")
                                 except:
                                     upload_img_field = None
-                                    print(' none upload_img_field ')
                             upload_img_field.send_keys(ad.adcopy.image)
                     except:
                         pass
@@ -1726,7 +1625,6 @@ def checkPostedApprovedAndChangeItTask(self, pk):
                 save.click()
 
                 # sleep
-                print(f'wait_after_each_post {wait_after_each_post}')
                 time.sleep(wait_after_each_post)
                 
                 
@@ -1742,7 +1640,6 @@ def checkPostedApprovedAndChangeItTask(self, pk):
                             posting = None
                         except:
                             posting = True
-                            print('post did not banded')
                     if posting == None:   
                         fb.accountStatus = 'banded from posting'
                         fb.save()
@@ -1753,7 +1650,6 @@ def checkPostedApprovedAndChangeItTask(self, pk):
                 # get the post link and save it
                 pattern = "^([^?]*)"
                 link = re.findall(pattern, driver.current_url )
-                print(f'link {link}')
                 ad.post_link = link[0]
                 ad.posted = True
                 ad.save()

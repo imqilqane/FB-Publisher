@@ -7,7 +7,14 @@
 <div class="dashboard-ecommerce">
     <div class="container-fluid dashboard-content ">
         <h3>Random adCopy To minipelate</h3>
-    
+        <div class="alert alert-info" role="alert" >
+            <p>
+                <strong>Note:</strong>this galaery willl be used in groups that requied admin approvment to POST,
+                so we will publish a post on those groups using random images and adcopies which dont include any sense of ads,
+                and after the post get approved we will change it with you real ad copy <mark>so make sure to upload images and relate it with is propre nich</mark>
+            </p>
+        </div>
+
         <div class="container">
                   
             <div class="row bg-light mb-2 border addNewAccount" id="hide_section">
@@ -16,9 +23,8 @@
                     <h4>Add image to your galaery</h4>
                     <form method='POST' enctype="multipart/form-data">{% csrf_token %}
                         <div class="image">
-                            <label for="img">Choose Picture</label>
-                            <input class="w-100" type="text" name="img" placeholder="put image path here" id="img">
-
+                            <label for="img" class="btn btn-outline-secondary mt-3">Choose Picture</label>
+                            <input type="file" name="img" id="img" accept="image/*" style="display : none">
                         </div>
                     
                         <div class="mt-3 niches">
@@ -44,14 +50,14 @@
             {% include 'facebook/randomeCopyWrite.html' %}
             {% if images %}
             <div class="row bg-light mb-2 border addNewAccount" id="hide_section">
-                <h4 class="ml-2">Your Images Paths</h4>
+                <h4 class="ml-2">Your Images</h4>
                 <div class="col-md-12">
                     <div> 
                         <div>
                             {% for img in images  %}
                             <div class="gallery">
                                     <div class="desc"><a href="{% url 'fb:delete_img' img.id %}" class="text-danger">Delete</a></div>
-                                    <div class="image_path p-1" style="overflow-wrap: break-word;">{{img.image}}</div>
+                                    <img src="{{img.image.url}}" alt="{{img.nich}}" width="600" height="400" >
                                     <div class="desc text-warning">Niche : {{img.nich}}</div>
                             </div>
                             {% endfor %}

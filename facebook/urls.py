@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('img/', views.getImg, name='img'),
     path('documentations/', views.docsView, name='doc'),
     path('accounts', views.facebookAccountsView, name='facebookAccounts'),
     path('accounts/delete/<str:pk>/', views.deleteFbAccount, name='delete'),
