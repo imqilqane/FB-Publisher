@@ -148,9 +148,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'contact.fbpublisher@gmail.com'
 EMAIL_USE_TLS = True
-DEFAULT_FORM_EMAIL = 'contact.fbpublisher@gmail.com'
+DEFAULT_FORM_EMAIL = 'xxxxxxx@gmail.com'
 EMAIL_PORT = 587 
-EMAIL_HOST_PASSWORD = 'Imqilqane123+'
+EMAIL_HOST_PASSWORD = 'xxxxxxxx'
 
 CELERY_BROKER_URL = 'redis://:p155ae55abc0b518247f6fd5369d455ba68ab508f6bca65c598f72b6597be00c0@ec2-54-161-251-41.compute-1.amazonaws.com:31419'
 CELERY_ACCEPT_CONTENT = ['json']
